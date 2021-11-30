@@ -23,16 +23,11 @@ echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
-for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/$file ~/dotfiles_old/
-    echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/$file
-done
-
 echo "Copying config from vim to neovim"
-mkdir -p ~/.config/nvim
-touch ~/.config/nvim/init.vim
-cat .vimrc >> ~/.config/nvim/init.vim
+mkdir -p ~/.config
+cp -R ~/dotfiles/.config/nvim ~/.config
+echo "...done"
+
+echo "Cloning vim-plug"
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "...done"
