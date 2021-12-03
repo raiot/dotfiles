@@ -5,6 +5,8 @@ autocmd!
 
 scriptencoding utf-8
 
+let g:airline_theme='one'
+
 set nocompatible
 set number
 syntax enable
@@ -12,7 +14,6 @@ set fileencodings=utf-8
 set encoding=utf-8
 set title
 set autoindent
-set background=dark
 set nobackup
 set hlsearch
 set showcmd
@@ -70,33 +71,8 @@ highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
 
 highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000
 
-augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cul
-    autocmd WinLeave * set nocul
-augroup END
-
-if &term =~ "screen"
-    autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
-    autocmd VimLeave * silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
-endif
-
-
-" file types
-" ---------------------------------------------------------------
-
-au BufNewFile,BufRead *.es6 setf javascript
-au BufNewFile,BufRead *.tsx setf typescriptreact
-
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.mdx set filetype=markdown
-
-au BufNewFile,BufRead *.flow set filetype=javascript
-
-set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.md
 
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-
 
 " imports
 " --------------------------------------------------------------
@@ -110,6 +86,8 @@ if has('unix')
     endif
 endif
 
+runtime ./map.vim
+
 " colors
 " -------------------------------------------------------------
 if exists("&termguicolors") && exists("&winblend")
@@ -118,13 +96,13 @@ if exists("&termguicolors") && exists("&winblend")
     set winblend=0
     set wildoptions=pum
     set pumblend=5
-    set background=dark
 endif
 
 set exrc
 
-set foldmethod=marker foldlevel=0:
+set foldmethod=marker foldlevel=0
 
-colorscheme gruvbox
+set background=dark
+colorscheme one
 highlight Normal guibg=NONE
 
